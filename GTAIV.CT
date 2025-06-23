@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="29">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Unlimited Health"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTAIV.exe
+  Version: 
+  Date   : 2020-03-25
+  Author : STN
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(health,GTAIV.exe,D9 81 9C 0E 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+label(fullhealth)
+
+newmem:
+fld [fullhealth]
+fstp [ecx+00000E9C]
+code:
+  fld dword ptr [ecx+00000E9C]
+  jmp return
+fullhealth:
+dd (float)200
+
+health:
+  jmp newmem
+  nop
+return:
+registersymbol(health)
+
+[DISABLE]
+
+health:
+  db D9 81 9C 0E 00 00
+
+unregistersymbol(health)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "GTAIV.exe"+62A930
+
+"GTAIV.exe"+62A920: 0F 85 0A BC EC FF        -  jne GTAIV.exe+4F6530
+"GTAIV.exe"+62A926: 33 C0                    -  xor eax,eax
+"GTAIV.exe"+62A928: C3                       -  ret 
+"GTAIV.exe"+62A929: CC                       -  int 3 
+"GTAIV.exe"+62A92A: CC                       -  int 3 
+"GTAIV.exe"+62A92B: CC                       -  int 3 
+"GTAIV.exe"+62A92C: CC                       -  int 3 
+"GTAIV.exe"+62A92D: CC                       -  int 3 
+"GTAIV.exe"+62A92E: CC                       -  int 3 
+"GTAIV.exe"+62A92F: CC                       -  int 3 
+// ---------- INJECTING HERE ----------
+"GTAIV.exe"+62A930: D9 81 9C 0E 00 00        -  fld dword ptr [ecx+00000E9C]
+// ---------- DONE INJECTING  ----------
+"GTAIV.exe"+62A936: C3                       -  ret 
+"GTAIV.exe"+62A937: CC                       -  int 3 
+"GTAIV.exe"+62A938: CC                       -  int 3 
+"GTAIV.exe"+62A939: CC                       -  int 3 
+"GTAIV.exe"+62A93A: CC                       -  int 3 
+"GTAIV.exe"+62A93B: CC                       -  int 3 
+"GTAIV.exe"+62A93C: CC                       -  int 3 
+"GTAIV.exe"+62A93D: CC                       -  int 3 
+"GTAIV.exe"+62A93E: CC                       -  int 3 
+"GTAIV.exe"+62A93F: CC                       -  int 3 
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>3</ID>
+      <Description>"Easy Kills"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(easykills,GTAIV.exe,F3 0F 58 81 F0 01 00 00)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+subss xmm0,[ecx+000001F0]
+jmp return
+
+easykills:
+jmp newmem
+nop
+nop
+nop
+return:
+registersymbol(easykills)
+
+[DISABLE]
+
+easykills:
+db F3 0F 58 81 F0 01 00 00
+
+unregistersymbol(easykills)
+dealloc(newmem)
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>114</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>15</ID>
+      <Description>"Unlimited Ammo"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTAIV.exe
+  Version: 
+  Date   : 2020-03-25
+  Author : STN
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ammo,GTAIV.exe,0F B7 4B 04 8B F1) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+mov [ebx+04], #99999999
+mov edx, [ebx+04]
+code:
+  movzx ecx,word ptr [ebx+04]
+  mov esi,ecx
+  jmp return
+
+ammo:
+  jmp newmem
+  nop
+return:
+registersymbol(ammo)
+
+[DISABLE]
+
+ammo:
+  db 0F B7 4B 04 8B F1
+
+unregistersymbol(ammo)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "GTAIV.exe"+764F30
+
+"GTAIV.exe"+764F12: 85 C0                 -  test eax,eax
+"GTAIV.exe"+764F14: 7E 33                 -  jle GTAIV.exe+764F49
+"GTAIV.exe"+764F16: 50                    -  push eax
+"GTAIV.exe"+764F17: E8 C4 0D F9 FF        -  call GTAIV.exe+6F5CE0
+"GTAIV.exe"+764F1C: 83 C4 04              -  add esp,04
+"GTAIV.exe"+764F1F: 85 C0                 -  test eax,eax
+"GTAIV.exe"+764F21: 74 26                 -  je GTAIV.exe+764F49
+"GTAIV.exe"+764F23: 83 78 0C 01           -  cmp dword ptr [eax+0C],01
+"GTAIV.exe"+764F27: 74 20                 -  je GTAIV.exe+764F49
+"GTAIV.exe"+764F29: 0F B7 90 88 00 00 00  -  movzx edx,word ptr [eax+00000088]
+// ---------- INJECTING HERE ----------
+"GTAIV.exe"+764F30: 0F B7 4B 04           -  movzx ecx,word ptr [ebx+04]
+"GTAIV.exe"+764F34: 8B F1                 -  mov esi,ecx
+// ---------- DONE INJECTING  ----------
+"GTAIV.exe"+764F36: 8B C2                 -  mov eax,edx
+"GTAIV.exe"+764F38: 66 3B CA              -  cmp cx,dx
+"GTAIV.exe"+764F3B: 0F 47 F0              -  cmova esi,eax
+"GTAIV.exe"+764F3E: 0F B7 C6              -  movzx eax,si
+"GTAIV.exe"+764F41: 50                    -  push eax
+"GTAIV.exe"+764F42: 8B CB                 -  mov ecx,ebx
+"GTAIV.exe"+764F44: E8 D7 07 00 00        -  call GTAIV.exe+765720
+"GTAIV.exe"+764F49: 83 C3 0C              -  add ebx,0C
+"GTAIV.exe"+764F4C: 4D                    -  dec ebp
+"GTAIV.exe"+764F4D: 75 C1                 -  jne GTAIV.exe+764F10
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>12</ID>
+      <Description>"Unlimited Money"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTAIV.exe
+  Version: 
+  Date   : 2020-03-25
+  Author : STN
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(moneyy,GTAIV.exe,89 81 C4 05 00 00 C2) // should be unique
+
+
+moneyy-3:
+ nop
+ nop
+ nop
+registersymbol(moneyy)
+
+[DISABLE]
+
+moneyy-3:
+  db 0f 4c c2
+
+unregistersymbol(moneyy)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "GTAIV.exe"+4D3155
+
+"GTAIV.exe"+4D313D: CC                       -  int 3 
+"GTAIV.exe"+4D313E: CC                       -  int 3 
+"GTAIV.exe"+4D313F: CC                       -  int 3 
+"GTAIV.exe"+4D3140: 8B 54 24 04              -  mov edx,[esp+04]
+"GTAIV.exe"+4D3144: 33 C0                    -  xor eax,eax
+"GTAIV.exe"+4D3146: 85 D2                    -  test edx,edx
+"GTAIV.exe"+4D3148: 0F 48 D0                 -  cmovs edx,eax
+"GTAIV.exe"+4D314B: B8 FF C9 9A 3B           -  mov eax,3B9AC9FF
+"GTAIV.exe"+4D3150: 3B D0                    -  cmp edx,eax
+"GTAIV.exe"+4D3152: 0F 4C C2                 -  cmovl eax,edx
+// ---------- INJECTING HERE ----------
+"GTAIV.exe"+4D3155: 89 81 C4 05 00 00        -  mov [ecx+000005C4],eax
+// ---------- DONE INJECTING  ----------
+"GTAIV.exe"+4D315B: C2 04 00                 -  ret 0004
+"GTAIV.exe"+4D315E: CC                       -  int 3 
+"GTAIV.exe"+4D315F: CC                       -  int 3 
+"GTAIV.exe"+4D3160: 55                       -  push ebp
+"GTAIV.exe"+4D3161: 8B EC                    -  mov ebp,esp
+"GTAIV.exe"+4D3163: 83 E4 F0                 -  and esp,-10
+"GTAIV.exe"+4D3166: 83 EC 28                 -  sub esp,28
+"GTAIV.exe"+4D3169: 56                       -  push esi
+"GTAIV.exe"+4D316A: 57                       -  push edi
+"GTAIV.exe"+4D316B: 8B F9                    -  mov edi,ecx
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>30</ID>
+      <Description>"No Wanted Level"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : GTAIV.exe
+  Version: 
+  Date   : 2020-03-25
+  Author : STN
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(wantedlevll,GTAIV.exe,8B 96 84 03 00 00 8B) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+mov [esi+00000384], 0
+code:
+  mov edx,[esi+00000384]
+  jmp return
+
+wantedlevll:
+  jmp newmem
+  nop
+return:
+registersymbol(wantedlevll)
+
+[DISABLE]
+
+wantedlevll:
+  db 8B 96 84 03 00 00
+
+unregistersymbol(wantedlevll)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "GTAIV.exe"+60BCAC
+
+"GTAIV.exe"+60BC9B: CC                       -  int 3 
+"GTAIV.exe"+60BC9C: CC                       -  int 3 
+"GTAIV.exe"+60BC9D: CC                       -  int 3 
+"GTAIV.exe"+60BC9E: CC                       -  int 3 
+"GTAIV.exe"+60BC9F: CC                       -  int 3 
+"GTAIV.exe"+60BCA0: A1 94 35 C4 01           -  mov eax,[GTAIV.exe+D73594]
+"GTAIV.exe"+60BCA5: 83 EC 08                 -  sub esp,08
+"GTAIV.exe"+60BCA8: 56                       -  push esi
+"GTAIV.exe"+60BCA9: 8B F1                    -  mov esi,ecx
+"GTAIV.exe"+60BCAB: 57                       -  push edi
+// ---------- INJECTING HERE ----------
+"GTAIV.exe"+60BCAC: 8B 96 84 03 00 00        -  mov edx,[esi+00000384]
+// ---------- DONE INJECTING  ----------
+"GTAIV.exe"+60BCB2: 8B 7C 24 14              -  mov edi,[esp+14]
+"GTAIV.exe"+60BCB6: 3B 46 10                 -  cmp eax,[esi+10]
+"GTAIV.exe"+60BCB9: 72 27                    -  jb GTAIV.exe+60BCE2
+"GTAIV.exe"+60BCBB: 8B 46 70                 -  mov eax,[esi+70]
+"GTAIV.exe"+60BCBE: 89 86 88 03 00 00        -  mov [esi+00000388],eax
+"GTAIV.exe"+60BCC4: 85 D2                    -  test edx,edx
+"GTAIV.exe"+60BCC6: 0F 94 C0                 -  sete al
+"GTAIV.exe"+60BCC9: 0F B6 C0                 -  movzx eax,al
+"GTAIV.exe"+60BCCC: 50                       -  push eax
+"GTAIV.exe"+60BCCD: 6A 01                    -  push 01
+}
+</AssemblerScript>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>6</ID>
+      <Description>"Unlimited Stamina"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(stamina,GTAIV.exe,81 08 00 10 00 00 5D)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+or [eax],0000000
+jmp return
+
+stamina:
+jmp newmem
+nop
+return:
+registersymbol(stamina)
+
+[DISABLE]
+
+stamina:
+db 81 08 00 10 00 00
+
+unregistersymbol(stamina)
+dealloc(newmem)
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>118</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>7</ID>
+      <Description>"Unlimited Vehicle Health"</Description>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+
+aobscanmodule(vehiclehealth,GTAIV.exe,F3 0F 5C 44 24 20 0F 2F)
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+jmp return
+
+vehiclehealth:
+jmp newmem
+nop
+return:
+registersymbol(vehiclehealth)
+
+[DISABLE]
+
+vehiclehealth:
+db F3 0F 5C 44 24 20
+
+unregistersymbol(vehiclehealth)
+dealloc(newmem)
+</AssemblerScript>
+      <Hotkeys>
+        <Hotkey>
+          <Action>Toggle Activation</Action>
+          <Keys>
+            <Key>119</Key>
+          </Keys>
+          <ID>0</ID>
+        </Hotkey>
+      </Hotkeys>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <Signature>
+    <SignedHash HashSize="132">0U)s!+wX@f@eLDAG+jKC+;8zqY(DT0+hxgn./e]^]w_9W:6qKif:Gco4B{K?)L72tGH4ZvJ_,HEgMhA;q1FK2rV!^gJR+{YDOCCSFEoY4qdIm6L)3IiPoWpil{)P/DfefdAE$Zg;C;(EAVz]TkIAqp9BSbC96-9iof8pY</SignedHash>
+    <PublicKey Size="323">CIA2cQ*y;zWn;@=c[33%PA({!W?TY:Y-MwEa%FaJY._.LZ+DGQZ+7bK0RTlqQ#C;W0005Nd,bJ2aZE/{)[g11up9}h-h:-.dX$Uuo2VIuNbG}FhM]dZ#F:19Q6J:.CY;JLUaF*Mrd8hw-g)veO^]y50Hd.{,W0_9?LWuhaP;2ppkn4$7Y!dKb/Aeyh:tak?g:=Mm-^:roKW*lYux:Bhn+^XD$QxcDlO-dP#I-fZqfjR00000]a2MWq]^#OcC8[@8@,;xC6y6sxu8!wf!iwb0L?tW$X=KGvY^9wq*=V9qQGF7nXROuac2jA,(]93D2MoSwgKx[eGGEl3E)EVab)@s3AQ;:O2*kNW8tNa^qZY@-2SQt!ezy}CNwBZU}+!+xt.pI1#uB!K63o%OXpGRw+dA</PublicKey>
+  </Signature>
+</CheatTable>
